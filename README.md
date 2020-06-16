@@ -1,1 +1,1 @@
-## If blocks
+## Create the component 'Modal'
