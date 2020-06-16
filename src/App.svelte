@@ -1,46 +1,39 @@
 <script>
-	import Modal from './Modal.svelte';
+	import TaskForm from './AddTaskForm.svelte';
 
-	let people = [
-		{ name: 'yoshi', beltColour: 'black', age: 25, id: 1 },
-		{ name: 'mario', beltColour: 'orange', age: 45, id: 2 },
-		{ name: 'luigi', beltColour: 'brown', age: 35, id: 3 },
+	let tasks = [
+		{ name: 'First task', id: 1, },
+		{ name: 'Secound task', id: 2, },
+		{ name: 'Third task', id: 3, },
+		{ name: 'Fourth task', id: 4, },
 	];
 
-	const handleClick = (id) => {
-		people = people.filter((person) => person.id != id )
+	const addTask = (e) => {
+		const newTask = e.detail; // Está o objeto que foi "despachado" no outro arquivo
+		tasks = [newTask, ...tasks] // "tasks" recebe a nova Task + as tasks que já existiam
 	}
 
-	let num = 3;
+	const handleClick = (id) => {
+		tasks = tasks.filter((task) => task.id != id )
+	}
+
 </script>
 
-{#if num > 20}
-	<p>Greater than 20</p>
-{:else if num > 5}
-	<p>Greater than 5</p>
-{:else}
-	<p>Not greater than 5</p>
-{/if}
+<TaskForm on:addTask={addTask} />
 
-<Modal />
 <main>
-	{#each people as person}
+	{#each tasks as task(task.id)}
 		<div>
-			<h4>{person.name}</h4>
-			{#if person.beltColour === 'black'}
-				<p><strong>MASTER NINJA</strong></p>
-			{/if}
-			<p>{person.age} yeras old, {person.beltColour} belt.</p>
-			<button on:click={() => {handleClick(person.id)}}>Delete!</button>
+			<h4>{task.name}</h4>
+			<button on:click={() => {handleClick(task.id)}}>Delete!</button>
 		</div>
 	{:else}
-		 <p>There're no people to show...</p>
+		 <p>There're no tasks to show...</p>
 	{/each}
 </main>
 
 <style>
 	main {
-		text-align: center;
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
