@@ -1,16 +1,16 @@
 <script>
 	export let name;
 	let theColor = 'black';
+	let firstName = 'Matheus';
+	let lastName = 'Pimentel'
 
-	const handleClick = () => {
-		theColor = 'orange';
-	}
+	$: fullName = `${firstName} ${lastName}`;
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p style="color: {theColor}">{theColor} color</p>
-	<button on:click={handleClick}>Click here to change to orange!</button>
+	<p style="color: {theColor}">{fullName}: {theColor} color</p>
+	<input type="text" bind:value={firstName}>
+	<input type="text" bind:value={lastName}>
 	<input type="text" bind:value={theColor}>
 </main>
 
